@@ -1,12 +1,17 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Font
+vim.opt.guifont='FiraMono Nerd Font Mono:h13'
+
 -- Make line numbers default
 vim.opt.number = true
 -- vim.opt.relativenumber = true
 
 -- Enable mouse mode,
 vim.opt.mouse = 'a'
+
+-- Remove disable mouse message
 vim.cmd.aunmenu('PopUp.How-to\\ disable\\ mouse')
 vim.cmd.aunmenu('PopUp.-1-')
 
@@ -114,6 +119,10 @@ require("lazy").setup({
     end,
   },
   {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
@@ -123,5 +132,7 @@ require("lazy").setup({
     end,
   },
 })
+
+require('lualine').setup()
 
 -- vim: ts=2 sts=2 sw=2 et
