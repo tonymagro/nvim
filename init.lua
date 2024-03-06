@@ -2,7 +2,11 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.cmd.colorscheme 'habamax'
-vim.opt.guifont='FiraMono Nerd Font Mono:h13'
+local font_name = "Consolas NF"
+local font_size = "h11"
+
+_G.neovim_gui_font = font_name .. ":" .. font_size
+vim.opt.guifont = _G.neovim_gui_font
 
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = 'unnamedplus'
@@ -120,6 +124,15 @@ require("lazy").setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  {
+    'equalsraf/neovim-gui-shim',
+    config = function()
+      vim.api.nvim_command('GuiFont! ' .. _G.neovim_gui_font)
+      vim.api.nvim_command('GuiTabline 0')
+      vim.api.nvim_command('GuiPopupmenu 0')
+      vim.api.nvim_command('GuiScrollBar 1')
+    end,
   }
 })
 
