@@ -96,7 +96,6 @@ set nomodeline
 set sessionoptions+=resize,winpos
 
 set statusline=%<%f\ 
-set stl+=%{fugitive#statusline()}
 set stl+=[%{&ff}]
 set stl+=[%{&fenc==\"\"?&enc:&fenc}]
 set stl+=%y%m%r%=
