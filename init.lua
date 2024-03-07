@@ -1,7 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.cmd.colorscheme('habamax')
 local font_name = "Consolas NF"
 local font_size = "h11"
 
@@ -133,8 +132,23 @@ require("lazy").setup({
       vim.api.nvim_command('GuiPopupmenu 0')
       vim.api.nvim_command('GuiScrollBar 1')
     end,
-  }
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function () 
+      local configs = require("nvim-treesitter.configs")
+      configs.setup({
+          ensure_installed = { "lua", "python", "c", "cpp", "json", "toml", "yaml", "go", "rust", "javascript", "sql" },
+          sync_install = false,
+          highlight = { enable = true },
+          indent = { enable = true },  
+        })
+    end,
+  },
 })
+
+vim.cmd.colorscheme("habamax")
 
 require('lualine').setup()
 
