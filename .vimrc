@@ -1,6 +1,4 @@
-if has('gui_running')
-    colorscheme NeoSolarized
-endif
+colorscheme habamax
 
 set background=dark
 set belloff=all
@@ -64,6 +62,23 @@ set ttyfast
 set viminfo=!,'100,<50,s10,h
 set wildmenu
 set go-=mTLe
+set tabstop=4 softtabstop=4 shiftwidth=4 shiftround
+set nowrap textwidth=0
+set autoread autowrite
+set splitbelow splitright
+set number
+set hidden
+set nomodeline
+set sessionoptions+=resize,winpos
+
+set statusline=%<%f\ 
+set stl+=[%{&ff}]
+set stl+=[%{&fenc==\"\"?&enc:&fenc}]
+set stl+=%y%m%r%=
+set stl+=%-14.(%l,%c%V%)\ %P
+
+set listchars=tab:├─,space:·,trail:~,extends:→,precedes:←
+set showbreak=→\ 
 if has('gui_running') && has('win32')
     set rop=type:directx
 endif
@@ -77,32 +92,6 @@ set clipboard=unnamed " yank to clipboard
 if has('win32')
     vnoremap <C-C> "+y
 endif
-
-" Bindings
-set tabstop=4 softtabstop=4 shiftwidth=4 shiftround
-set nowrap textwidth=0
-set autoread autowrite
-set splitbelow splitright
-set number
-set hidden
-
-" Config
-set go-=m
-set go-=T
-set go-=L
-set go-=e " graphical tabs off
-
-set nomodeline
-set sessionoptions+=resize,winpos
-
-set statusline=%<%f\ 
-set stl+=[%{&ff}]
-set stl+=[%{&fenc==\"\"?&enc:&fenc}]
-set stl+=%y%m%r%=
-set stl+=%-14.(%l,%c%V%)\ %P
-
-set listchars=tab:├─,space:·,trail:~,extends:→,precedes:←
-set showbreak=→\ 
 
 syntax on
 
