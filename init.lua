@@ -185,8 +185,9 @@ require("lazy").setup({
 	},
 })
 
--- Terminal.app only supports 256 colors
+-- OSX Terminal.app only supports 256 colors
 if vim.env.TERM_PROGRAM == "Apple_Terminal" then
+	-- ginit.vim will override these when nvim-qt is launched from Terminal.app
 	vim.opt.termguicolors = false
 	vim.cmd.colorscheme("habamax")
 else
