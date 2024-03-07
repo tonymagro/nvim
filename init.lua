@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local font_name = "Consolas NF"
+local font_name = "LigaConsolas Nerd Font"
 local font_size = "h11"
 
 _G.neovim_gui_font = font_name .. ":" .. font_size
@@ -65,6 +65,10 @@ vim.opt.inccommand = "split"
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+if vim.env.TERM_PROGRAM ~= "Apple_Terminal" then -- Terminal.app only supports 256 colours
+	vim.opt.termguicolors = true
+end
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -152,7 +156,7 @@ require("lazy").setup({
 					"rust",
 					"javascript",
 					"sql",
-          "markdown",
+					"markdown",
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -164,18 +168,24 @@ require("lazy").setup({
 		"stevearc/conform.nvim",
 		opts = {},
 	},
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+	},
 })
 
 vim.cmd.colorscheme("habamax")
 
 require("lualine").setup()
+require("bufferline").setup({})
 
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "black" },
-    json = { { "prettierd", "prettier" } },
-    markdown = { { "prettierd", "prettier" } },
+		json = { { "prettierd", "prettier" } },
+		markdown = { { "prettierd", "prettier" } },
 		javascript = { { "prettierd", "prettier" } },
 	},
 })
