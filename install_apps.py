@@ -1,15 +1,6 @@
 import platform
 import subprocess
 
-applications = [
-    "ripgrep",
-    "black",
-    "stylua",
-    "tree-sitter",
-    "prettier",
-]
-
-
 def install_with_brew(applications):
     for app in applications:
         print(f"Installing {app} with Homebrew...")
@@ -19,14 +10,26 @@ def install_with_brew(applications):
 def install_with_scoop(applications):
     for app in applications:
         print(f"Installing {app} with Scoop...")
-        subprocess.run(["scoop", "install", app])
+        command = f'PowerShell -Command "scoop install {app}"'
+        subprocess.run(command, check=True)
 
 
 if __name__ == "__main__":
+    apps = [
+        "ripgrep",
+        "stylua",
+        "tree-sitter",
+    ]
+    darwin_apps = [
+        "black",
+        "prettier",
+    ]
+
     os_name = platform.system()
     if os_name == "Darwin":
-        install_with_brew(applications)
+        apps.extend(darwin_apps)
+        install_with_brew(apps)
     elif os_name == "Windows":
-        install_with_scoop(applications)
+        install_with_scoop(apps)
     else:
         print("Unsupported OS. This script only supports macOS and Windows.")
