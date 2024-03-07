@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.cmd.colorscheme 'habamax'
+vim.cmd.colorscheme('habamax')
 local font_name = "Consolas NF"
 local font_size = "h11"
 
