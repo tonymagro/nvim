@@ -1,22 +1,21 @@
 // Settings in here override those in "Default/Preferences.sublime-settings",
 // and are overridden in turn by syntax-specific settings.
 {
-	// Yank commands can place the text in either an internal register, or in
-	// the system clipboard.
-	"vintage_use_clipboard": true,
+  // Yank commands can place the text in either an internal register, or in
+  // the system clipboard.
+  "vintage_use_clipboard": true,
 
-	// When Vintage, the vi emulation package, is enabled
-	// (see ignored_packages, below), this setting controls if files are opened
-	// in command mode or insert mode by default
-	"vintage_start_in_command_mode": true,
+  // When Vintage, the vi emulation package, is enabled
+  // (see ignored_packages, below), this setting controls if files are opened
+  // in command mode or insert mode by default
+  "vintage_start_in_command_mode": true,
 
-	// These settings control the size of the caret
-	"caret_extra_top": 0,
-	"caret_extra_bottom": 0,
-	"caret_extra_width": 1,
+  // These settings control the size of the caret
+  "caret_extra_top": 0,
+  "caret_extra_bottom": 0,
+  "caret_extra_width": 1,
 
-	"word_wrap": "false",
+  "word_wrap": "false",
 
-	"ignored_packages": [
-	]
+  "ignored_packages": []
 }

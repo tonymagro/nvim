@@ -73,7 +73,9 @@ def remove_from_context_menu():
 
         print('Context menu option "Edit with Vim" has been removed.')
     except PermissionError:
-        print("Failed to remove context menu. Please run this script as an administrator.")
+        print(
+            "Failed to remove context menu. Please run this script as an administrator."
+        )
 
 
 def parse_arguments():
@@ -99,4 +101,6 @@ if __name__ == "__main__":
         if nvim_qt_path:
             add_to_context_menu(nvim_qt_path)
         else:
-            print("nvim-qt.exe not found. Please ensure Neovim is installed and try again.")
+            print(
+                "nvim-qt.exe not found. Please ensure Neovim is installed and try again."
+            )
