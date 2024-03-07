@@ -1,4 +1,8 @@
-colorscheme habamax
+colorscheme industry
+
+if has('win32')
+	set guifont=Consolas:h11:cANSI:qDRAFT
+endif
 
 set background=dark
 set belloff=all
@@ -61,7 +65,6 @@ set tags=./tags;,tags
 set ttyfast
 set viminfo=!,'100,<50,s10,h
 set wildmenu
-set go-=mTLe
 set tabstop=4 softtabstop=4 shiftwidth=4 shiftround
 set nowrap textwidth=0
 set autoread autowrite
@@ -71,11 +74,23 @@ set hidden
 set nomodeline
 set sessionoptions+=resize,winpos
 
+set go-=m
+set go-=T
+set go-=L
+set go-=e " graphical tabs off
+
 set statusline=%<%f\ 
 set stl+=[%{&ff}]
 set stl+=[%{&fenc==\"\"?&enc:&fenc}]
 set stl+=%y%m%r%=
 set stl+=%-14.(%l,%c%V%)\ %P
+
+
+" Keybinds to make split navigation easier.
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
 
 set listchars=tab:├─,space:·,trail:~,extends:→,precedes:←
 set showbreak=→\ 
