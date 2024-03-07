@@ -66,10 +66,6 @@ vim.opt.inccommand = "split"
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
-if vim.env.TERM_PROGRAM ~= "Apple_Terminal" then -- Terminal.app only supports 256 colours
-	vim.opt.termguicolors = true
-end
-
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -118,11 +114,10 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<C-p>", builtin.find_files, {})
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find Files" })
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Grep" })
+			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Buffers" })
 		end,
 	},
 	{
@@ -173,11 +168,38 @@ require("lazy").setup({
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+		opts = {},
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
 })
 
-vim.cmd.colorscheme("habamax")
+-- Terminal.app only supports 256 colors
+if vim.env.TERM_PROGRAM == "Apple_Terminal" then
+	vim.opt.termguicolors = false
+	vim.cmd.colorscheme("habamax")
+else
+	vim.opt.termguicolors = true
+	vim.cmd.colorscheme("tokyonight")
+end
 
-require("lualine").setup()
+require("lualine").setup({
+	options = {
+		theme = "tokyonight",
+	},
+})
+
 require("bufferline").setup({})
 
 require("conform").setup({
