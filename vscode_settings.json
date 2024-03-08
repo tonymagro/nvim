@@ -14,7 +14,7 @@
   "vim.leader": " ",
   "vim.normalModeKeyBindings": [
     {
-      "before": ["<leader>", "f", "f"],
+      "before": ["<leader>", "s", "f"],
       "commands": ["workbench.action.quickOpen"]
     }
   ]
