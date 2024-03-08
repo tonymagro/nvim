@@ -223,7 +223,7 @@ require("lazy").setup({
 		end,
 	},
 	{
-    -- Lightweight code formatter
+		-- Lightweight code formatter
 		"stevearc/conform.nvim",
 		opts = {
 			formatters_by_ft = {
