@@ -55,3 +55,9 @@
    ```
 
 4. **Install the Font:** Double-click `font/LigaConsolas-NF-Regular.ttf`. This will open the Font Book application. Click "Install Font" to add it to your system fonts.
+
+5. **(Optional) Add Neovim-Qt to Applications:** Link homebrew nvim-qt.app to /Application: 
+
+   ```sh
+   ln -s /opt/homebrew/opt/neovim-qt/nvim-qt.app /Applications
+   ```
