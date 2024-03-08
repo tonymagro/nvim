@@ -26,8 +26,8 @@ vim.opt.number = true
 vim.opt.mouse = "a"
 
 -- Remove context mouse message
-vim.cmd.aunmenu("PopUp.How-to\\ disable\\ mouse")
-vim.cmd.aunmenu("PopUp.-1-")
+pcall(vim.cmd.aunmenu, "PopUp.How-to\\ disable\\ mouse")
+pcall(vim.cmd.aunmenu, "PopUp.-1-")
 
 -- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
@@ -84,6 +84,9 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Bind Shitf-Y to yank line
+vim.keymap.set("n", "Y", "yy", { noremap = true, silent = true })
 
 -- Highlight flash when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -206,16 +209,24 @@ require("lazy").setup({
 				ensure_installed = {
 					"lua",
 					"python",
+					"llvm",
 					"c",
 					"cpp",
-					"json",
-					"toml",
-					"yaml",
 					"go",
 					"rust",
 					"javascript",
+					"typescript",
 					"sql",
-					"markdown",
+					"vim",
+					"vimdoc",
+					"markdown_inline",
+					"html",
+					"css",
+					"json",
+					"yaml",
+					"toml",
+					"ron",
+					"bash",
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -233,6 +244,9 @@ require("lazy").setup({
 				json = { { "prettierd", "prettier" } },
 				markdown = { { "prettierd", "prettier" } },
 				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				go = { "gofmt" },
+				rust = { "rustfmt" },
 			},
 		},
 	},
@@ -309,5 +323,6 @@ vim.api.nvim_create_user_command("Format", function(args)
 end, { range = true })
 
 vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { desc = "[F]ormat document" })
+vim.cmd.amenu("PopUp.Format :Format<CR>")
 
 -- vim: ts=2 sts=2 sw=2 et
