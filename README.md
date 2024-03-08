@@ -18,9 +18,10 @@
    git clone https://github.com/tonymagro/nvim
    ```
 
-3. **Run the Installation Script:** After installing Neovim and Python, execute the `install_apps.py` Python script to install necessary packages and other Neovim dependencies:
+3. **Run the Installation Script:** Run the `install_apps.py` Python script to install necessary packages and other Neovim dependencies:
 
    ```powershell
+   cd $HOME\AppData\Local\nvim
    python install_apps.py
    ```
 
@@ -48,15 +49,16 @@
    git clone https://github.com/tonymagro/nvim
    ```
 
-3. **Run the Installation Script:** Once Neovim and Python are installed, run the `install_apps.py` Python script to install the required packages and any other Neovim dependencies:
+3. **Run the Installation Script:** Run the `install_apps.py` Python script to install the required packages and any other Neovim dependencies:
 
    ```sh
+   cd ~/.config/nvim
    python3 install_apps.py
    ```
 
 4. **Install the Font:** Double-click `font/LigaConsolas-NF-Regular.ttf`. This will open the Font Book application. Click "Install Font" to add it to your system fonts.
 
-5. **(Optional) Add Neovim-Qt to Applications:** Link homebrew nvim-qt.app to /Application: 
+5. **(Optional) Add Neovim-Qt to Applications:**
 
    ```sh
    ln -s /opt/homebrew/opt/neovim-qt/nvim-qt.app /Applications
