@@ -41,6 +41,7 @@ if __name__ == "__main__":
         "ripgrep",
         "stylua",
         "tree-sitter",
+        "cmake",
     ]
     darwin_apps = [
         "black",
