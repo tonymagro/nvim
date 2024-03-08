@@ -94,6 +94,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Bootstrap Lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -253,11 +254,11 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-				["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
+				-- ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
+				-- ["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
+				-- ["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+				-- ["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
 			})
 		end,
 	},
@@ -294,7 +295,7 @@ else
 	vim.cmd.colorscheme("tokyonight")
 end
 
--- Format command for format current buffer
+-- Format command to format current buffer
 vim.api.nvim_create_user_command("Format", function(args)
 	local range = nil
 	if args.count ~= -1 then
@@ -306,5 +307,7 @@ vim.api.nvim_create_user_command("Format", function(args)
 	end
 	require("conform").format({ async = true, lsp_fallback = true, range = range })
 end, { range = true })
+
+vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { desc = "[F]ormat document" })
 
 -- vim: ts=2 sts=2 sw=2 et
