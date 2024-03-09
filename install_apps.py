@@ -62,7 +62,12 @@ def main():
         "black",
         "prettier",
     ]
-    windows_apps: List[str] = ["nodejs-lts", "pnpm"]
+    windows_apps: List[str] = [
+        "mingw",
+        "mingw-winlibs",
+        "nodejs-lts",
+        "pnpm",
+    ]
     windows_pip_apps: List[str] = ["black"]
     windows_pnpm_apps: List[str] = ["prettier"]
 
