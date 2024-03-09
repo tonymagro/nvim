@@ -7,6 +7,10 @@ local font_size = 'h14'
 _G.neovim_gui_font = font_name .. ':' .. font_size
 vim.opt.guifont = _G.neovim_gui_font
 
+-- Disable netrw tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = 'unnamedplus'
 
@@ -598,6 +602,18 @@ require('lazy').setup {
       vim.api.nvim_command 'GuiScrollBar 1'
     end,
   },
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+      vim.keymap.set('n', '<leader>t', "<cmd>NvimTreeToggle<cr>", { desc = '[T]ree Explorer' })
+    end,
+  }
 }
 
 -- vim: ts=2 sts=2 sw=2 et
