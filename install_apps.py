@@ -48,6 +48,7 @@ def install_with_pnpm(packages: List[str]) -> None:
 
 def main():
     apps: List[str] = [
+        "7zip",
         "llvm",
         "cmake",
         "make",
