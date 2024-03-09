@@ -12,21 +12,21 @@ def run_powershell_command(command: str) -> CompletedProcess:
     return completed_process
 
 
-def install_with_brew(applications: List[str]) -> None:
-    for app in applications:
-        print(f"Installing {app} with Homebrew...")
-        command = ["brew", "install", app]
+def install_with_brew(packages: List[str]) -> None:
+    for package in packages:
+        print(f"Installing {package} with Homebrew...")
+        command = ["brew", "install", package]
         print(f"Executing command: {' '.join(command)}")
         subprocess.run(command)
 
 
-def install_with_scoop(applications: List[str]) -> None:
-    for app in applications:
-        print(f"Installing {app} with Scoop...")
-        command = f"scoop install {app}"
+def install_with_scoop(packages: List[str]) -> None:
+    for package in packages:
+        print(f"Installing {package} with Scoop...")
+        command = f"scoop install {package}"
         run_powershell_command(command)
 
-    if "pnpm" in applications:
+    if "pnpm" in packages:
         print("Running 'pnpm setup'...")
         run_powershell_command("pnpm setup")
 
