@@ -5,6 +5,7 @@
   "editor.autoClosingQuotes": "never",
   "editor.autoSurround": "never",
   "vim.useSystemClipboard": true,
+  "vim.highlightedyank.enable": true,
   "vim.handleKeys": {
     "<C-p>": false,
     "<C-d>": true,
