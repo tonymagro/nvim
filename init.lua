@@ -362,6 +362,23 @@ require('lazy').setup {
   {
     -- Lightweight code formatter
     'stevearc/conform.nvim',
+    config = function()
+      -- Format command to format current buffer
+      vim.api.nvim_create_user_command('Format', function(args)
+        local range = nil
+        if args.count ~= -1 then
+          local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+          range = {
+            start = { args.line1, 0 },
+            ['end'] = { args.line2, end_line:len() },
+          }
+        end
+        require('conform').format { async = true, lsp_fallback = true, range = range }
+      end, { range = true })
+
+      vim.keymap.set('n', '<leader>f', '<cmd>Format<cr>', { desc = '[F]ormat document' })
+      vim.cmd.amenu 'PopUp.Format :Format<CR>'
+    end,
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -473,6 +490,17 @@ require('lazy').setup {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
+    config = function()
+      -- OSX Terminal.app only supports 256 colors
+      if vim.env.TERM_PROGRAM == 'Apple_Terminal' then
+        -- ginit.vim will correctly override these when nvim-qt is launched from Terminal.app
+        vim.opt.termguicolors = false
+        vim.cmd.colorscheme 'habamax'
+      else
+        vim.opt.termguicolors = true
+        vim.cmd.colorscheme 'tokyonight'
+      end
+    end,
     opts = {},
   },
   {
@@ -525,6 +553,7 @@ require('lazy').setup {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
           'lua',
@@ -548,6 +577,7 @@ require('lazy').setup {
           'ron',
           'bash',
         },
+        ignore_install = {},
         auto_install = true,
         sync_install = false,
         highlight = {
@@ -569,31 +599,5 @@ require('lazy').setup {
     end,
   },
 }
-
--- OSX Terminal.app only supports 256 colors
-if vim.env.TERM_PROGRAM == 'Apple_Terminal' then
-  -- ginit.vim will correctly override these when nvim-qt is launched from Terminal.app
-  vim.opt.termguicolors = false
-  vim.cmd.colorscheme 'habamax'
-else
-  vim.opt.termguicolors = true
-  vim.cmd.colorscheme 'tokyonight'
-end
-
--- Format command to format current buffer
-vim.api.nvim_create_user_command('Format', function(args)
-  local range = nil
-  if args.count ~= -1 then
-    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-    range = {
-      start = { args.line1, 0 },
-      ['end'] = { args.line2, end_line:len() },
-    }
-  end
-  require('conform').format { async = true, lsp_fallback = true, range = range }
-end, { range = true })
-
-vim.keymap.set('n', '<leader>f', '<cmd>Format<cr>', { desc = '[F]ormat document' })
-vim.cmd.amenu 'PopUp.Format :Format<CR>'
 
 -- vim: ts=2 sts=2 sw=2 et
