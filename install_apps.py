@@ -2,63 +2,76 @@ import os
 import sys
 import platform
 import subprocess
+from typing import List
+from subprocess import CompletedProcess
 
 
-def run_powershell_command(command):
+def run_powershell_command(command: str) -> CompletedProcess:
+    print(f"Running PowerShell command: {command}")
     completed_process = subprocess.run(["powershell", "-Command", command], check=True)
     return completed_process
 
 
-def install_with_brew(applications):
+def install_with_brew(applications: List[str]) -> None:
     for app in applications:
         print(f"Installing {app} with Homebrew...")
-        subprocess.run(["brew", "install", app])
+        command = ["brew", "install", app]
+        print(f"Executing command: {' '.join(command)}")
+        subprocess.run(command)
 
 
-def install_with_scoop(applications):
+def install_with_scoop(applications: List[str]) -> None:
     for app in applications:
         print(f"Installing {app} with Scoop...")
-        run_powershell_command(f"scoop install {app}")
+        command = f"scoop install {app}"
+        run_powershell_command(command)
 
     if "pnpm" in applications:
         print("Running 'pnpm setup'...")
         run_powershell_command("pnpm setup")
 
 
-def install_with_pip(packages):
+def install_with_pip(packages: List[str]) -> None:
     for package in packages:
         print(f"Installing {package} with pip...")
-        subprocess.run(["pip", "install", package], check=True)
+        command = ["pip", "install", package]
+        print(f"Executing command: {' '.join(command)}")
+        subprocess.run(command, check=True)
 
 
-def install_with_pnpm(packages):
+def install_with_pnpm(packages: List[str]) -> None:
     for package in packages:
         print(f"Installing {package} with pnpm...")
-        run_powershell_command(f"pnpm add -g {package}")
+        command = f"pnpm add -g {package}"
+        run_powershell_command(command)
 
 
-if __name__ == "__main__":
-    apps = [
+def main():
+    apps: List[str] = [
+        "llvm",
+        "cmake",
+        "make",
         "ripgrep",
         "stylua",
         "tree-sitter",
-        "cmake",
+        "go",
+        "rust",
     ]
-    darwin_apps = [
+    darwin_apps: List[str] = [
         "black",
         "prettier",
     ]
-    windows_apps = ["llvm", "nodejs-lts", "pnpm"]
-    windows_pip_apps = ["black"]
-    windows_pnpm_apps = ["prettier"]
+    windows_apps: List[str] = ["nodejs-lts", "pnpm"]
+    windows_pip_apps: List[str] = ["black"]
+    windows_pnpm_apps: List[str] = ["prettier"]
 
-    os_name = platform.system()
+    os_name: str = platform.system()
     if os_name == "Darwin":
         install_with_brew(apps)
         install_with_brew(darwin_apps)
     elif os_name == "Windows":
         # Set PNPM_HOME and PATH for the subprocess
-        pnpm_home = os.path.expanduser("~\\AppData\\Local\\pnpm")
+        pnpm_home: str = os.path.expanduser("~\\AppData\\Local\\pnpm")
         os.environ["PNPM_HOME"] = pnpm_home
         os.environ["PATH"] += os.pathsep + pnpm_home
         install_with_scoop(apps)
@@ -70,3 +83,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     print("Setup complete. Please open a new terminal to start using nvim.")
+
+
+if __name__ == "__main__":
+    main()

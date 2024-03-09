@@ -1,8 +1,15 @@
 """Add or Remove "Edit with Vim" from the Windows context menu."""
 
 import os
-import winreg as reg
 import argparse
+import platform
+import sys
+
+if platform.system() != "Windows":
+    print(f"Unsupported OS: {platform.system()}")
+    sys.exit(1)
+
+import winreg as reg
 
 key_path = r"*\shell\Edit with Vim"
 command_path = r"*\shell\Edit with Vim\command"
