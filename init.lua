@@ -497,18 +497,19 @@ require('lazy').setup {
     config = function()
       -- OSX Terminal.app only supports 256 colors
       if vim.env.TERM_PROGRAM == 'Apple_Terminal' then
-        -- ginit.vim will correctly override these when nvim-qt is launched from Terminal.app
+        -- ginit.vim will correctly override these with
+        -- tokyonight when nvim-qt is launched from Terminal.app
         vim.opt.termguicolors = false
-        vim.cmd.colorscheme 'habamax'
+        vim.cmd.colorscheme('habamax')
       else
         vim.opt.termguicolors = true
-        vim.cmd.colorscheme 'tokyonight'
+        vim.cmd.colorscheme('tokyonight')
       end
     end,
     opts = {},
   },
   {
-    -- Buffer Tabs
+    -- Tabs
     'akinsho/bufferline.nvim',
     version = '*',
     dependencies = {
@@ -638,7 +639,9 @@ require('lazy').setup {
       { '<leader>t', "<cmd>Neotree toggle<cr>", { desc = '[T]ree Explorer' } }
     },
     config = function()
-      require("neo-tree").setup {}
+      require("neo-tree").setup {
+        close_if_last_window = true,
+      }
     end,
   }
 }
