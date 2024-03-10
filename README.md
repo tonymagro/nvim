@@ -7,8 +7,7 @@
 1. **Install Neovim and Python:** Use [Scoop](https://scoop.sh/), a command-line installer for Windows, to install Neovim and Python. Open PowerShell and execute the following commands:
 
    ```powershell
-   scoop install neovim
-   scoop install python
+   scoop install git python neovim
    ```
 
 2. **Clone Neovim Config**:
@@ -38,8 +37,7 @@
 1. **Install Neovim and Python:** Use [Homebrew](https://brew.sh/), a package manager for macOS, to install Neovim and Python. Open your terminal and run the following commands:
 
    ```sh
-   brew install neovim
-   brew install python
+   brew install git python neovim
    ```
 
 2. **Clone Neovim Config**:

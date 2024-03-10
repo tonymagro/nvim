@@ -102,16 +102,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Bootstrap Lazy plugin manager
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
     lazypath,
-  }
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -615,25 +615,30 @@ require('lazy').setup {
     end,
   },
   {
-    -- Neovim-qt GUI setup
+    -- Nvim-qt GUI
     'equalsraf/neovim-gui-shim',
     config = function()
       vim.api.nvim_command('GuiFont! ' .. _G.neovim_gui_font)
-      vim.api.nvim_command 'GuiTabline 0'
-      vim.api.nvim_command 'GuiPopupmenu 0'
-      vim.api.nvim_command 'GuiScrollBar 1'
+      vim.api.nvim_command('GuiTabline 0')
+      vim.api.nvim_command('GuiPopupmenu 0')
+      vim.api.nvim_command('GuiScrollBar 1')
     end,
   },
   {
-    "nvim-tree/nvim-tree.lua",
+    "nvim-neo-tree/neo-tree.nvim",
     version = "*",
-    lazy = false,
+    branch = "v3.x",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    keys = {
+      { '<leader>t', "<cmd>Neotree toggle<cr>", { desc = '[T]ree Explorer' } }
     },
     config = function()
-      require("nvim-tree").setup {}
-      vim.keymap.set('n', '<leader>t', "<cmd>NvimTreeToggle<cr>", { desc = '[T]ree Explorer' })
+      require("neo-tree").setup {}
     end,
   }
 }
