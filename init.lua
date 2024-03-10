@@ -89,8 +89,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
--- Bind Shitf-Y to yank line
-vim.keymap.set('n', 'Y', 'yy', { noremap = true, silent = true })
+-- Shitft-Y to yank line
+vim.keymap.set('n', 'Y', 'yy', { noremap = true, silent = true, desc = "Yank Line" })
+
+-- Ctrl-s to save
+vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "File Save" })
 
 -- Highlight flash when yanking text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -516,7 +519,19 @@ require('lazy').setup {
       'nvim-tree/nvim-web-devicons',
     },
     config = function()
-      require('bufferline').setup {}
+      require('bufferline').setup {
+        options = {
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              highlight = "Directory",
+              text_align = "left",
+              separator = true
+            }
+          },
+        }
+      }
     end,
   },
   {
@@ -626,24 +641,40 @@ require('lazy').setup {
     end,
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    version = "*",
-    branch = "v3.x",
+    "nvim-tree/nvim-tree.lua",
     dependencies = {
-      "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
-      { '<leader>t', "<cmd>Neotree toggle<cr>", { desc = '[T]ree Explorer' } }
+      { '<leader>t', "<cmd>NvimTreeToggle<cr>", { desc = '[T]ree Explorer' } }
     },
     config = function()
-      require("neo-tree").setup {
-        close_if_last_window = true,
-      }
+      require("nvim-tree").setup {}
     end,
-  }
+  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   version = "*",
+  --   branch = "v3.x",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-tree/nvim-web-devicons",
+  --     "MunifTanjim/nui.nvim",
+  --     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+  --   },
+  --   cmd = {
+  --     'Neotree'
+  --   },
+  --   keys = {
+  --     { '<leader>t', "<cmd>Neotree toggle<cr>", { desc = '[T]ree Explorer' } }
+  --   },
+  --   config = function()
+  --     require("neo-tree").setup {
+  --       close_if_last_window = true,
+  --     }
+  --   end,
+  -- }
 }
 
 -- vim: ts=2 sts=2 sw=2 et
