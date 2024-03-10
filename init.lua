@@ -524,13 +524,25 @@ require('lazy').setup {
           offsets = {
             {
               filetype = "NvimTree",
-              text = "File Explorer",
-              highlight = "Directory",
-              text_align = "left",
-              separator = true
-            }
+              text = "Explorer",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
+            {
+              filetype = "DiffviewFiles",
+              text = "Diff View",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
+            {
+              filetype = "lazy",
+              text = "Lazy",
+              highlight = "PanelHeading",
+              padding = 1,
+            },
           },
-        }
+          always_show_bufferline = false,
+        },
       }
     end,
   },
