@@ -773,6 +773,15 @@ require('lazy').setup {
   --     }
   --   end,
   -- }
+  {
+    -- Terminal
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {
+      direction = "float",
+      open_mapping = [[<c-\>]],
+    }
+  }
 }
 
 -- vim: ts=2 sts=2 sw=2 et
