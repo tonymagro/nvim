@@ -6,9 +6,9 @@ from typing import List
 from subprocess import CompletedProcess
 
 
-def run_powershell_command(command: str) -> CompletedProcess:
+def run_powershell_command(command: str, check=True) -> CompletedProcess:
     print(f"Running PowerShell command: {command}")
-    completed_process = subprocess.run(["powershell", "-Command", command], check=True)
+    completed_process = subprocess.run(["powershell", "-Command", command], check=check)
     return completed_process
 
 
@@ -34,9 +34,8 @@ def install_with_scoop(packages: List[str]) -> None:
 def install_with_pip(packages: List[str]) -> None:
     for package in packages:
         print(f"Installing {package} with pip...")
-        command = ["pip", "install", package]
-        print(f"Executing command: {' '.join(command)}")
-        subprocess.run(command, check=True)
+        command = f"pip install {package}"
+        run_powershell_command(command)
 
 
 def install_with_pnpm(packages: List[str]) -> None:
@@ -57,6 +56,7 @@ def main():
         "tree-sitter",
         "go",
         "rust",
+        "lazygit"
     ]
     darwin_apps: List[str] = [
         "black",
@@ -77,6 +77,7 @@ def main():
         install_with_brew(darwin_apps)
     elif os_name == "Windows":
         # Set PNPM_HOME and PATH for the subprocess
+        run_powershell_command("scoop bucket add extras", False)
         pnpm_home: str = os.path.expanduser("~\\AppData\\Local\\pnpm")
         os.environ["PNPM_HOME"] = pnpm_home
         os.environ["PATH"] += os.pathsep + pnpm_home
