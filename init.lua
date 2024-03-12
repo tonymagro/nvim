@@ -745,7 +745,7 @@ require('lazy').setup {
     },
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     keys = {
-      { '<leader>t', "<cmd>NvimTreeToggle<cr>", { desc = '[T]ree Explorer' } }
+      { '<leader>t', "<cmd>NvimTreeToggle<cr>", desc = '[T]ree Explorer' }
     },
     config = function()
       require("nvim-tree").setup {}
