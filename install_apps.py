@@ -26,10 +26,6 @@ def install_with_scoop(packages: List[str]) -> None:
         command = f"scoop install {package}"
         run_powershell_command(command)
 
-    if "pnpm" in packages:
-        print("Running 'pnpm setup'...")
-        run_powershell_command("pnpm setup")
-
 
 def install_with_pip(packages: List[str]) -> None:
     for package in packages:
@@ -38,10 +34,10 @@ def install_with_pip(packages: List[str]) -> None:
         run_powershell_command(command)
 
 
-def install_with_pnpm(packages: List[str]) -> None:
+def install_with_npm(packages: List[str]) -> None:
     for package in packages:
-        print(f"Installing {package} with pnpm...")
-        command = f"pnpm add -g {package}"
+        print(f"Installing {package} with npm...")
+        command = f"npm install -g {package}"
         run_powershell_command(command)
 
 
@@ -65,26 +61,22 @@ def main():
     windows_apps: List[str] = [
         "mingw",
         "mingw-winlibs",
-        "nodejs-lts",
-        "pnpm",
+        "nodejs",
     ]
     windows_pip_apps: List[str] = ["black"]
-    windows_pnpm_apps: List[str] = ["prettier"]
+    windows_npm_apps: List[str] = ["prettier"]
 
     os_name: str = platform.system()
     if os_name == "Darwin":
         install_with_brew(apps)
         install_with_brew(darwin_apps)
     elif os_name == "Windows":
-        # Set PNPM_HOME and PATH for the subprocess
+        run_powershell_command("scoop bucket add main", False)
         run_powershell_command("scoop bucket add extras", False)
-        pnpm_home: str = os.path.expanduser("~\\AppData\\Local\\pnpm")
-        os.environ["PNPM_HOME"] = pnpm_home
-        os.environ["PATH"] += os.pathsep + pnpm_home
         install_with_scoop(apps)
         install_with_scoop(windows_apps)
         install_with_pip(windows_pip_apps)
-        install_with_pnpm(windows_pnpm_apps)
+        install_with_npm(windows_npm_apps)
     else:
         print("Unsupported OS. This script only supports macOS and Windows.")
         sys.exit(1)
