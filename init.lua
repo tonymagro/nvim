@@ -781,6 +781,10 @@ require('lazy').setup {
       direction = "float",
       open_mapping = [[<c-\>]],
     }
+  },
+  {
+    -- Highlight other uses of the word under the cursor
+    "RRethy/vim-illuminate",
   }
 }
 
