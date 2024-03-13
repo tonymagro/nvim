@@ -765,30 +765,30 @@ require('lazy').setup {
     "RRethy/vim-illuminate",
   },
   {
-    'nvim-orgmode/orgmode',
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    lazy = false,
+    -- tag = "*",
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter', lazy = true },
+      "nvim-lua/plenary.nvim",
+      'nvim-treesitter/nvim-treesitter',
     },
-    event = 'VeryLazy',
     config = function()
-      -- Load treesitter grammar for org
-      require('orgmode').setup_ts_grammar()
-
-      -- Setup treesitter
-      require('nvim-treesitter.configs').setup({
-        highlight = {
-          enable = true,
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},
+          ["core.concealer"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/Documents/Notes",
+              },
+            },
+          },
         },
-        ensure_installed = { 'org' },
-      })
-
-      -- Setup orgmode
-      require('orgmode').setup({
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refile.org',
-      })
+      }
     end,
-  }
+  },
 }
 
 -- vim: ts=2 sts=2 sw=2 et
