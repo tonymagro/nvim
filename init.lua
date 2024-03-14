@@ -716,6 +716,7 @@ require('lazy').setup {
           'toml',
           'ron',
           'bash',
+          'norg',
         },
         ignore_install = {},
         auto_install = true,
@@ -765,28 +766,18 @@ require('lazy').setup {
     "RRethy/vim-illuminate",
   },
   {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    lazy = false,
-    -- tag = "*",
+    'nvim-orgmode/orgmode',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      'nvim-treesitter/nvim-treesitter',
+      { 'nvim-treesitter/nvim-treesitter', lazy = true },
     },
+    event = 'VeryLazy',
     config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},
-          ["core.concealer"] = {},
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/Documents/Notes",
-              },
-            },
-          },
-        },
-      }
+      require('orgmode').setup_ts_grammar()
+
+      require('orgmode').setup({
+        org_agenda_files = '~/orgfiles/**/*',
+        org_default_notes_file = '~/orgfiles/refile.org',
+      })
     end,
   },
   {
