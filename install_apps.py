@@ -64,8 +64,6 @@ def main():
         "prettier",
     ]
     windows_apps: List[str] = [
-        "mingw",
-        "mingw-winlibs",
         "nodejs",
     ]
     windows_pip_apps: List[str] = ["black"]
