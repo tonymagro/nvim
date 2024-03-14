@@ -717,6 +717,7 @@ require('lazy').setup {
           'ron',
           'bash',
           'norg',
+          'org',
         },
         ignore_install = {},
         auto_install = true,

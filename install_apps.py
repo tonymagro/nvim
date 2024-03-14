@@ -1,9 +1,14 @@
-import os
 import sys
 import platform
 import subprocess
 from typing import List
 from subprocess import CompletedProcess
+
+"""
+Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vs_BuildTools.exe' -OutFile "$env:TEMP\vs_BuildTools.exe"
+
+& "$env:TEMP\vs_BuildTools.exe" --passive --wait --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --remove Microsoft.VisualStudio.Component.VC.CMake.Project	
+"""
 
 
 def run_powershell_command(command: str, check=True) -> CompletedProcess:
