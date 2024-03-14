@@ -765,7 +765,7 @@ require('lazy').setup {
   },
   {
     -- Highlight other uses of the word under the cursor
-    "RRethy/vim-illuminate",
+    --"RRethy/vim-illuminate",
   },
   {
     'nvim-orgmode/orgmode',
