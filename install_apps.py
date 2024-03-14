@@ -62,6 +62,7 @@ def main():
     darwin_apps: List[str] = [
         "black",
         "prettier",
+        "npm",
     ]
     windows_apps: List[str] = [
         "nodejs",
