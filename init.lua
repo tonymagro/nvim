@@ -96,7 +96,6 @@ vim.keymap.set('n', 'Y', 'yy', { noremap = true, silent = true, desc = "Yank Lin
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "File Save" })
 
 -- Unbind F1 to since I always accidentally hit it and launch help
-
 vim.keymap.set('', '<F1>', '<Nop>', {noremap = true, silent = true})
 vim.keymap.set('i', '<F1>', '<Nop>', {noremap = true, silent = true})
 vim.keymap.set('v', '<F1>', '<Nop>', {noremap = true, silent = true})
@@ -190,6 +189,14 @@ local function buf_kill(kill_command, bufnr, force)
   end
 end
 
+-- Buffer Delete command
+vim.api.nvim_create_user_command('Bdelete', function(opts)
+  buf_kill("bd", tonumber(opts.args), false)
+end, { nargs = "?" })  -- Optionally accept a buffer number
+
+-- Keymap for Buffer Delete
+vim.keymap.set('n', '<leader>bd', ':Bdelete<CR>', { desc = "[B]uffer [D]elete", noremap = true, silent = true })
+
 -- Bootstrap Lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -234,6 +241,7 @@ require('lazy').setup {
     config = function()
       require('which-key').setup()
       require('which-key').register {
+        ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
         ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
