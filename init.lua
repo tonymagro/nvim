@@ -95,6 +95,14 @@ vim.keymap.set('n', 'Y', 'yy', { noremap = true, silent = true, desc = "Yank Lin
 -- Ctrl-s to save
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "File Save" })
 
+-- Unbind F1 to since I always accidentally hit it and launch help
+
+vim.keymap.set('', '<F1>', '<Nop>', {noremap = true, silent = true})
+vim.keymap.set('i', '<F1>', '<Nop>', {noremap = true, silent = true})
+vim.keymap.set('v', '<F1>', '<Nop>', {noremap = true, silent = true})
+vim.keymap.set('c', '<F1>', '<Nop>', {noremap = true, silent = true})
+
+
 -- Highlight flash when yanking text
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
