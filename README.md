@@ -62,7 +62,7 @@
    ln -s /opt/homebrew/opt/neovim-qt/nvim-qt.app /Applications
    ```
 
-6. **(Optional) Substitute Vim commands with Neovim:** Add the following aliases to `~/.zprofile` or the corresponding initialization file for your shell.
+6. **(Optional) Substitute Vim commands with Neovim:** Add the following aliases to `~/.zshrc` or the corresponding initialization file for your shell.
 
    ```sh
    alias vi="nvim"
