@@ -262,6 +262,7 @@ require('lazy').setup {
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-T>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('<A-g>', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -269,7 +270,6 @@ require('lazy').setup {
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('<A-g>', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
