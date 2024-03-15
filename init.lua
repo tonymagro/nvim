@@ -143,6 +143,10 @@ require('lazy').setup {
     },
   },
   {
+    -- Disable features for big files
+    "LunarVim/bigfile.nvim"
+  },
+  {
     -- Adds git signs to gutter
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -679,7 +683,7 @@ require('lazy').setup {
   },
   {
     -- Highlight other uses of the word under the cursor
-    --"RRethy/vim-illuminate",
+    "RRethy/vim-illuminate",
   },
   {
     'nvim-orgmode/orgmode',
