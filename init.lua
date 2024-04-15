@@ -635,10 +635,11 @@ require('lazy').setup {
           'toml',
           'ron',
           'bash',
-          'norg',
+        },
+        ignore_install = {
+          'csv',
           'org',
         },
-        ignore_install = {},
         auto_install = true,
         sync_install = false,
         highlight = {
@@ -686,14 +687,11 @@ require('lazy').setup {
     "RRethy/vim-illuminate",
   },
   {
+    -- Orgmode
     'nvim-orgmode/orgmode',
-    dependencies = {
-      { 'nvim-treesitter/nvim-treesitter', lazy = true },
-    },
     event = 'VeryLazy',
+    ft = { 'org' },
     config = function()
-      require('orgmode').setup_ts_grammar()
-
       require('orgmode').setup({
         org_agenda_files = '~/orgfiles/**/*',
         org_default_notes_file = '~/orgfiles/refile.org',
