@@ -110,6 +110,68 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Function to copy the full path of the current file
+local function copy_current_file_path()
+  local file_path = vim.fn.expand("%:p")
+  if file_path == "" then
+    print("No file is currently open.")
+    return
+  end
+  vim.fn.setreg('+', file_path)
+  print("Copied file path: " .. file_path)
+end
+
+vim.api.nvim_create_user_command('CopyCurrentFilePath', copy_current_file_path, { range = false })
+
+-- Function to open the current file in the OS file manager
+local function open_in_file_manager()
+  local file_path = vim.fn.expand("%:p:h")
+  if file_path == "" then
+    print("No file is currently open.")
+    return
+  end
+  local open_cmd
+  if vim.fn.has("mac") == 1 then
+    open_cmd = "open " .. file_path
+  elseif vim.fn.has("unix") == 1 then
+    open_cmd = "xdg-open " .. file_path
+  elseif vim.fn.has("win32") == 1 then
+    open_cmd = "explorer " .. file_path
+  else
+    print("Unsupported OS")
+    return
+  end
+  vim.fn.system(open_cmd)
+end
+
+-- Function to open a terminal at the current file's directory path
+local function open_terminal_at_file_path()
+  local file_path = vim.fn.expand("%:p:h")
+  if file_path == "" then
+    print("No file is currently open.")
+    return
+  end
+  local terminal_cmd
+  if vim.fn.has("mac") == 1 then
+    terminal_cmd = "open -a Terminal " .. file_path
+  elseif vim.fn.has("unix") == 1 then
+    terminal_cmd = "gnome-terminal --working-directory=" .. file_path .. " &"
+  elseif vim.fn.has("win32") == 1 then
+    terminal_cmd = "start cmd /K cd " .. file_path
+  else
+    print("Unsupported OS")
+    return
+  end
+  vim.fn.system(terminal_cmd)
+end
+
+vim.keymap.set('n', '<leader>dp', copy_current_file_path, { noremap = true, silent = true, desc = "[D]ocument [P]ath" })
+vim.cmd.amenu('PopUp.Path :CopyCurrentFilePath<CR>')
+vim.keymap.set('n', '<leader>do', open_in_file_manager,
+  { noremap = true, silent = true, desc = "[D]ocument [O]pen Path" })
+vim.keymap.set('n', '<leader>dt', open_terminal_at_file_path,
+  { noremap = true, silent = true, desc = "[D]ocument [T]erminal" })
+
 -- Bootstrap Lazy plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -172,7 +234,7 @@ require('lazy').setup {
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>o'] = { name = '[O]rgmode', _ = 'which_key_ignore' },
+        -- ['<leader>o'] = { name = '[O]rgmode', _ = 'which_key_ignore' },
       }
     end,
   },
@@ -404,7 +466,7 @@ require('lazy').setup {
         require('conform').format { async = true, lsp_fallback = true, range = range }
       end, { range = true })
 
-      vim.keymap.set('n', '<leader>f', '<cmd>Format<cr>', { desc = '[F]ormat document' })
+      vim.keymap.set('n', '<leader>df', '<cmd>Format<cr>', { desc = '[D]ocument [F]ormat' })
       vim.cmd.amenu 'PopUp.Format :Format<CR>'
     end,
     opts = {
@@ -686,18 +748,18 @@ require('lazy').setup {
     -- Highlight other uses of the word under the cursor
     "RRethy/vim-illuminate",
   },
-  {
-    -- Orgmode
-    'nvim-orgmode/orgmode',
-    event = 'VeryLazy',
-    ft = { 'org' },
-    config = function()
-      require('orgmode').setup({
-        org_agenda_files = '~/orgfiles/**/*',
-        org_default_notes_file = '~/orgfiles/refile.org',
-      })
-    end,
-  },
+  -- {
+  --   -- Orgmode
+  --   'nvim-orgmode/orgmode',
+  --   event = 'VeryLazy',
+  --   ft = { 'org' },
+  --   config = function()
+  --     require('orgmode').setup({
+  --       org_agenda_files = '~/orgfiles/**/*',
+  --       org_default_notes_file = '~/orgfiles/refile.org',
+  --     })
+  --   end,
+  -- },
   {
     -- Surround text in quotes, etc
     "kylechui/nvim-surround",
