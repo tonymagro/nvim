@@ -172,17 +172,20 @@ vim.keymap.set('n', '<leader>do', open_in_file_manager,
 vim.keymap.set('n', '<leader>dt', open_terminal_at_file_path,
   { noremap = true, silent = true, desc = "[D]ocument [T]erminal" })
 
--- Bootstrap Lazy plugin manager
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -222,19 +225,19 @@ require('lazy').setup {
     },
   },
   {
-    -- Displays popup with possible key bindings for the command
     'folke/which-key.nvim',
     event = 'VimEnter',
     config = function()
       require('which-key').setup()
-      require('which-key').register {
-        ['<leader>b'] = { name = '[B]uffer', _ = 'which_key_ignore' },
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        -- ['<leader>o'] = { name = '[O]rgmode', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { '<leader>b', group = '[B]uffer' },
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
     end,
   },
@@ -748,18 +751,6 @@ require('lazy').setup {
     -- Highlight other uses of the word under the cursor
     "RRethy/vim-illuminate",
   },
-  -- {
-  --   -- Orgmode
-  --   'nvim-orgmode/orgmode',
-  --   event = 'VeryLazy',
-  --   ft = { 'org' },
-  --   config = function()
-  --     require('orgmode').setup({
-  --       org_agenda_files = '~/orgfiles/**/*',
-  --       org_default_notes_file = '~/orgfiles/refile.org',
-  --     })
-  --   end,
-  -- },
   {
     -- Surround text in quotes, etc
     "kylechui/nvim-surround",
