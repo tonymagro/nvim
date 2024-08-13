@@ -2,7 +2,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 local font_name = 'LigaConsolas Nerd Font'
 local font_size = 'h14'
 
@@ -230,7 +230,11 @@ require('lazy').setup({
       'folke/which-key.nvim',
       event = 'VimEnter',
       config = function()
-        require('which-key').setup()
+        require('which-key').setup {
+          icons = {
+            mappings = vim.g.have_nerd_font,
+          },
+        }
         require('which-key').add {
           { '<leader>b', group = '[B]uffer' },
           { '<leader>c', group = '[C]ode' },
@@ -603,7 +607,7 @@ require('lazy').setup({
       'akinsho/bufferline.nvim',
       version = '*',
       dependencies = {
-        'nvim-tree/nvim-web-devicons',
+        { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       },
       config = function()
         require('bufferline').setup {
@@ -643,12 +647,13 @@ require('lazy').setup({
       -- Fancy statusline
       'nvim-lualine/lualine.nvim',
       dependencies = {
-        'nvim-tree/nvim-web-devicons',
+        { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       },
       config = function()
         require('lualine').setup {
           options = {
             theme = 'tokyonight',
+            icons_enabled = vim.g.have_nerd_font,
           },
         }
       end,
@@ -729,7 +734,7 @@ require('lazy').setup({
     {
       "nvim-tree/nvim-tree.lua",
       dependencies = {
-        "nvim-tree/nvim-web-devicons",
+        { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       },
       cmd = { "NvimTreeToggle", "NvimTreeFocus" },
       keys = {
@@ -761,7 +766,7 @@ require('lazy').setup({
         require("nvim-surround").setup({
         })
       end
-    }
+    },
   },
   {
     ui = {
