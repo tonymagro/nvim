@@ -1,4 +1,7 @@
 -- Based on https://github.com/nvim-lua/kickstart.nvim
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -8,10 +11,6 @@ local font_size = 'h14'
 
 _G.neovim_gui_font = font_name .. ':' .. font_size
 vim.opt.guifont = _G.neovim_gui_font
-
--- Disable netrw tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- Sync clipboard between OS and Neovim.
 vim.opt.clipboard = 'unnamedplus'
@@ -699,6 +698,7 @@ require('lazy').setup({
             'vim',
             'vimdoc',
             'markdown_inline',
+            'markdown',
             'html',
             'css',
             'json',
@@ -738,7 +738,7 @@ require('lazy').setup({
       },
       cmd = { "NvimTreeToggle", "NvimTreeFocus" },
       keys = {
-        { '<leader>t', "<cmd>NvimTreeToggle<cr>", desc = '[T]ree Explorer' }
+        { '<leader>we', "<cmd>NvimTreeToggle<cr>", desc = '[W]orkspace [E]xplorer' }
       },
       config = function()
         require("nvim-tree").setup {}
