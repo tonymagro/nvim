@@ -82,10 +82,10 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Prev [D]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = '[E]rror messages' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '[Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
@@ -166,12 +166,10 @@ local function open_terminal_at_file_path()
   vim.fn.system(terminal_cmd)
 end
 
-vim.keymap.set('n', '<leader>dp', copy_current_file_path, { noremap = true, silent = true, desc = "[D]ocument [P]ath" })
+vim.keymap.set('n', '<leader>dc', copy_current_file_path, { noremap = true, silent = true, desc = "[C]opy Path" })
 vim.cmd.amenu('PopUp.Path :CopyCurrentFilePath<CR>')
-vim.keymap.set('n', '<leader>do', open_in_file_manager,
-  { noremap = true, silent = true, desc = "[D]ocument [O]pen Path" })
-vim.keymap.set('n', '<leader>dt', open_terminal_at_file_path,
-  { noremap = true, silent = true, desc = "[D]ocument [T]erminal" })
+vim.keymap.set('n', '<leader>do', open_in_file_manager, { noremap = true, silent = true, desc = "[O]pen Path" })
+vim.keymap.set('n', '<leader>dt', open_terminal_at_file_path, { noremap = true, silent = true, desc = "[T]erminal Path" })
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -205,7 +203,7 @@ require('lazy').setup({
       'ojroques/nvim-bufdel',
       cmd = { "BufDel", "BufDelAll", "BufDelOthers" },
       keys = {
-        { '<leader>bd', "<cmd>BufDel<cr>", desc = "[B]uffer [D]elete" }
+        { '<leader>bd', "<cmd>BufDel<cr>", desc = "[D]elete" }
       },
     },
     {
@@ -282,35 +280,38 @@ require('lazy').setup({
         pcall(require('telescope').load_extension, 'ui-select')
 
         local builtin = require 'telescope.builtin'
-        vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-        vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-        vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = '[S]earch [F]iles' })
-        vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-        vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-        vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-        vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-        vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-        vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+        vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find Buffer' })
 
         vim.keymap.set('n', '<leader>/', function()
           builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
             winblend = 10,
             previewer = false,
           })
-        end, { desc = '[/] Fuzzily search in current buffer' })
+        end, { desc = '[/] Fuzzy Search File' })
+
+        vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
+        vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[K]eymaps' })
+        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[F]iles' })
+        vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Search Files' })
+        vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]elect Telescope' })
+        vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[W]ord' })
+        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[G]rep' })
+        vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[D]iagnostics' })
+        vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[R]esume' })
+        vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[.] Recent Files' })
 
         vim.keymap.set('n', '<leader>s/', function()
           builtin.live_grep {
             grep_open_files = true,
             prompt_title = 'Live Grep in Open Files',
           }
-        end, { desc = '[S]earch [/] in Open Files' })
+        end, { desc = '[/] Grep Open Files' })
 
         vim.keymap.set('n', '<leader>sn', function()
           builtin.find_files { cwd = vim.fn.stdpath 'config' }
-        end, { desc = '[S]earch [N]eovim files' })
+        end, { desc = '[N]eovim files' })
+
       end,
     },
     {
@@ -473,8 +474,8 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_fallback = true, range = range }
         end, { range = true })
 
-        vim.keymap.set('n', '<leader>df', '<cmd>Format<cr>', { desc = '[D]ocument [F]ormat' })
-        vim.cmd.amenu 'PopUp.Format :Format<CR>'
+        vim.keymap.set('n', '<leader>df', '<cmd>Format<cr>', { desc = '[F]ormat' })
+        vim.cmd.amenu('PopUp.Format :Format<CR>')
       end,
       opts = {
         formatters_by_ft = {
@@ -611,6 +612,7 @@ require('lazy').setup({
       config = function()
         require('bufferline').setup {
           options = {
+            show_buffer_icons = vim.g.have_nerd_font,
             close_command = "BufDel! %d",
             max_name_length = 18,
             max_prefix_length = 15,
@@ -640,6 +642,7 @@ require('lazy').setup({
             },
           },
         }
+        vim.keymap.set('n', '<leader>bp', '<cmd>BufferLinePick<cr>', { desc = '[P]ick' })
       end,
     },
     {
@@ -738,7 +741,7 @@ require('lazy').setup({
       },
       cmd = { "NvimTreeToggle", "NvimTreeFocus" },
       keys = {
-        { '<leader>we', "<cmd>NvimTreeToggle<cr>", desc = '[W]orkspace [E]xplorer' }
+        { '<leader>wt', "<cmd>NvimTreeToggle<cr>", desc = '[T]ree View' }
       },
       config = function()
         require("nvim-tree").setup {}
@@ -763,8 +766,7 @@ require('lazy').setup({
       version = "*",
       event = "VeryLazy",
       config = function()
-        require("nvim-surround").setup({
-        })
+        require("nvim-surround").setup({})
       end
     },
   },
