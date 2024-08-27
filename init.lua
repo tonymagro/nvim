@@ -81,6 +81,12 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Keybinds to make split resizing easier.
+vim.keymap.set('n', '<M-h>', '<cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
+vim.keymap.set('n', '<M-l>', '<cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
+vim.keymap.set('n', '<M-j>', '<cmd>resize -2<CR>', { desc = 'Descrease window height' })
+vim.keymap.set('n', '<M-k>', '<cmd>resize +2<CR>', { desc = 'Increase window height' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Prev [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next [D]iagnostic message' })
