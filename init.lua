@@ -289,13 +289,14 @@ require('lazy').setup({
 
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find Buffer' })
 
-        vim.keymap.set('n', '<leader>/', function()
-          builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-            winblend = 10,
-            previewer = false,
-          })
-        end, { desc = '[/] Fuzzy Search File' })
+        -- vim.keymap.set('n', '<leader>/', function()
+        --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+        --     winblend = 10,
+        --     previewer = false,
+        --   })
+        -- end, { desc = '[/] Fuzzy Search File' })
 
+        vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, { desc = '[/] Fuzzy Search File' })
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[K]eymaps' })
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[F]iles' })
