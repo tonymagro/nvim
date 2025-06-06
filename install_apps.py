@@ -35,7 +35,7 @@ def install_with_scoop(packages: List[str]) -> None:
 def install_with_pip(packages: List[str]) -> None:
     for package in packages:
         print(f"Installing {package} with pip...")
-        command = f"pip install {package}"
+        command = f"pip install --disable-pip-version-check {package}"
         run_powershell_command(command)
 
 
@@ -65,7 +65,7 @@ def main():
         "npm",
     ]
     windows_apps: List[str] = [
-        "nodejs",
+        #"nodejs",
     ]
     windows_pip_apps: List[str] = ["black"]
     windows_npm_apps: List[str] = ["prettier"]
