@@ -1,4 +1,4 @@
-" Visual Studio VsVim extension settings 
+" Visual Studio VsVim extension settings
 
 " CTRL-X and SHIFT-Del are Cut
 vnoremap <C-X> "+x
@@ -32,6 +32,17 @@ noremap <C-Q>		<C-V>
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
-set clipboard=unnamed " yank to clipboard
+" set clipboard=unnamed " yank to clipboard
+" Sometimes slow, see https://github.com/VsVim/VsVim/issues/2035
+noremap y "*y
+noremap yy "*yy
+noremap Y "*y$
+noremap d "*d
+noremap dd "*dd
+noremap D "*D
+noremap p "*p
+noremap P "*P
+" black hole register for x because chars do not need to go in any accessible register anyway
+noremap x "_x
 
 set vb
