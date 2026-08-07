@@ -1,0 +1,24 @@
+<UserSettings>
+    <ApplicationIdentity version="17.0" />
+    <ToolsOptions>
+        <ToolsOptionsCategory name="Environment" RegisteredName="Environment" />
+    </ToolsOptions>
+    <Category name="Environment_Group" RegisteredName="Environment_Group">
+        <Category name="Environment_KeyBindings" Category="{F09035F1-80D2-4312-8EC4-4D354A4BCB4C}"
+            Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}"
+            RegisteredName="Environment_KeyBindings" PackageName="Visual Studio Environment Package">
+            <Version>17.0.0.0</Version>
+            <KeyboardShortcuts>
+                <UserShortcuts>
+                    <Shortcut Command="Edit.GoToDefinition" Scope="Global">Alt+G</Shortcut>
+                    <Shortcut Command="View.NavigateForward" Scope="Global">Alt+Right Arrow</Shortcut>
+                    <Shortcut Command="View.NavigateBackward" Scope="Global">Alt+Left Arrow</Shortcut>
+                    <Shortcut Command="Edit.GoToFile" Scope="Global">Shift+Alt+O</Shortcut>
+                    <Shortcut Command="Edit.FindAllReferences" Scope="Global">Shift+Alt+F</Shortcut>
+                    <Shortcut Command="Edit.GoToText" Scope="Global">Alt+F</Shortcut>
+                    <Shortcut Command="Edit.GoToSymbol" Scope="Global">Shift+Alt+S</Shortcut>
+                </UserShortcuts>
+            </KeyboardShortcuts>
+        </Category>
+    </Category>
+</UserSettings>
