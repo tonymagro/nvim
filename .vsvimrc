@@ -34,15 +34,15 @@ vnoremap <BS> d
 
 " set clipboard=unnamed " yank to clipboard
 " Sometimes slow, see https://github.com/VsVim/VsVim/issues/2035
-noremap y "*y
-noremap yy "*yy
-noremap Y "*y$
-noremap d "*d
-noremap dd "*dd
-noremap D "*D
-noremap p "*p
-noremap P "*P
+" noremap y "*y
+" noremap yy "*yy
+" noremap Y "*y$
+" noremap d "*d
+" noremap dd "*dd
+" noremap D "*D
+" noremap p "*p
+" noremap P "*P
 " black hole register for x because chars do not need to go in any accessible register anyway
-noremap x "_x
+"a noremap x "_x
 
 set vb
