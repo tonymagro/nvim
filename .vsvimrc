@@ -32,8 +32,9 @@ noremap <C-Q>		<C-V>
 " backspace in Visual mode deletes selection
 vnoremap <BS> d
 
-" set clipboard=unnamed " yank to clipboard
 " Sometimes slow, see https://github.com/VsVim/VsVim/issues/2035
+set clipboard=unnamed " yank to clipboard
+" Workaround for slow copy
 " noremap y "*y
 " noremap yy "*yy
 " noremap Y "*y$
